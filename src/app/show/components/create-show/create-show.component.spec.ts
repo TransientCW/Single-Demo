@@ -6,6 +6,7 @@ import * as fromShows from '../../../state/shows-state/show.reducer';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UrlValidationPipe } from 'src/app/shared/pipes/url-validation.pipe';
 
 describe('CreateShowComponent', () => {
   let component: CreateShowComponent;
@@ -27,6 +28,7 @@ describe('CreateShowComponent', () => {
             shows: fromShows.initialState
           }
         }),
+        UrlValidationPipe
       ]
     })
     .compileComponents();

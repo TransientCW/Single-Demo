@@ -9,7 +9,7 @@ import { Show } from "src/app/show/shared/model/show.model";
 import { hot } from 'jasmine-marbles';
 
 
-fdescribe('Facade: Shows', () => {
+describe('Facade: Shows', () => {
   let facade: ShowsFacade;
   let store: MockStore<State>;
   beforeEach(() => {

@@ -46,7 +46,7 @@ export class ShowListComponent implements OnInit {
   }
 
   deleteShow(show: Show) {
-    this.showsFacade.dispatchSetPageable({ page: 0, size: 5});
+    // this.showsFacade.dispatchSetPageable({ page: 0, size: 5});
     this.showsFacade.dispatchDeleteShow(show);
   }
 
