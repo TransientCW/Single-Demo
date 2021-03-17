@@ -1,0 +1,19 @@
+1. Wildcard route is not working, add '**' to path rather than single asterisk
+
+2. Remove initialization logic from all constructors, into ngOnInit
+
+3. SharedModule is not doing anything and isn't neccessary - However, I did add a pipe to it for the create show component
+
+4. Add form and form listener on create show, to disable button until all Show properties are valid. Also add back button to component
+
+5. On shows-list component/page, disable previous page button if current page is 0, and fix previousPage() function to spread this.pageable and check for index 0
+
+6. Break each individual show row in the list into its own dumb component with Show input and delete show emitter
+
+7. Make show search filtering case insensitive
+
+8. Set up shows facade, and remove all idea of store/state from all components
+
+9. Restructure state folder structure for readability
+
+10. Unit test facade and then shows list for demo purposes
