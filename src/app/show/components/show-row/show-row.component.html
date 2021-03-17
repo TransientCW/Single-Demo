@@ -1,0 +1,27 @@
+<li class="list-group-item">
+      <div class="row align-items-center">
+        <div class="col-md-2 col-sm-6">
+          {{ show?.eventTime | date }}
+        </div>
+        <div class="col-md-4 col-sm-6 align-self-start">
+          {{ show?.artist }}
+        </div>
+        <div class="col-md-4 col-sm-6">
+          {{ show?.venue }}
+        </div>
+        <div class="col-md-1 col-sm-6 text-center">
+          <button class="btn btn-outline-secondary">
+            <a [href]="show.ticketUrl"
+               target="_blank">
+              Buy Tickets
+            </a>
+          </button>
+        </div>
+        <div class="col-md-1 col-sm-6 text-center">
+          <button class="btn btn-danger"
+                  (click)="deleteShowEmitter.emit(show)">
+              X
+          </button>
+        </div>
+      </div>
+    </li>

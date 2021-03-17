@@ -1,0 +1,66 @@
+<ng-container *ngIf="loading$ | async">
+  Loading...
+</ng-container>
+<ng-container *ngIf="!(loading$ | async) && !(loaded$ | async)">
+  Failed to load shows!
+</ng-container>
+<ng-container *ngIf="!(loading$ | async) && (loaded$ | async)">
+  <div class="row my-3 mx-4">
+    <div class="col">
+      <button class="btn btn-primary"
+              [routerLink]="['/shows', 'create']">
+        Create Show
+      </button>
+    </div>
+    <div class="col-3">
+      <div class="input-group">
+        <label for="filter">Filter</label>
+        <input id="filter"
+               name="filter"
+               type="text"
+               [formControl]="showFilterInput"
+               [(ngModel)]="showFilter">
+      </div>
+    </div>
+  </div>
+  <ul class="list-group"
+      *ngIf="shows$ | async as shows">
+    <li class="list-group-item d-none d-md-block header">
+      <div class="row align-items-center">
+        <div class="col-2 text-center">
+          <h4>Date</h4>
+        </div>
+        <div class="col-4 text-center">
+          <h4>Artist</h4>
+        </div>
+        <div class="col-4 text-center">
+          <h4>Venue</h4>
+        </div>
+      </div>
+    </li>
+    <ng-container *ngFor="let show of shows$ | async">
+      <single-show-row
+        [show]="show"
+        (deleteShowEmitter)="deleteShow($event)"
+      ></single-show-row>
+    </ng-container>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-6 text-center">
+          <button class="btn btn-outline-primary"
+                  [disabled]="pageable.page === 0"
+                  (click)="previousPage()">
+            <
+          </button>
+        </div>
+        <div class="col-6 text-center">
+          <button class="btn btn-outline-primary"
+                  [disabled]="(shows$ | async)?.length < pageable.size"
+                  (click)="nextPage()">
+            >
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</ng-container>

@@ -1,0 +1,73 @@
+<form class="form" #f=ngForm>
+  <div class="row">
+    <div class="col pl-0 my-3">
+      <h2>Create a New Event</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 pl-0">
+      <div class="form-group">
+        <label for="eventTime">Event Date</label>
+        <div class="input-group">
+          <input class="form-control"
+                 placeholder="yyyy-mm-dd"
+                 name="eventTime"
+                 [(ngModel)]="eventTime"
+                 ngbDatepicker
+                 #d="ngbDatepicker"
+                 type="text"
+                 id="eventTime"/>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()">Cal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col pl-0">
+      <div class="form-group">
+        <label for="venue">Venue</label>
+        <input class="form-control"
+               type="text"
+               id="venue"
+               name="venue"
+               [(ngModel)]="show.venue"/>
+      </div>
+    </div>
+    <div class="col pl-0">
+      <div class="form-group">
+        <label for="venue">Artist</label>
+        <input class="form-control"
+               type="text"
+               id="artist"
+               name="artist"
+               [(ngModel)]="show.artist"/>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col pl-0">
+      <div class="form-group">
+        <label for="ticketUrl">Ticket Link</label>
+        <input class="form-control"
+               type="text"
+               id="ticketUrl"
+               name="ticketUrl"
+               [(ngModel)]="show.ticketUrl"/>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 pl-0">
+      <button class="btn btn-block btn-primary"
+              type="submit"
+              [disabled]="!showComplete"
+              (click)="createShow()">Create</button>
+    </div>
+    <div class="col-3 pl-0">
+      <button class="btn btn-block btn-outline-secondary"
+              (click)="onBackNav()">Back</button>
+    </div>
+  </div>
+</form>

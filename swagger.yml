@@ -1,0 +1,195 @@
+swagger: "2.0"
+info:
+  description: "This is an imaginary API that stores and retreives information about live music performances."
+  version: "1.0.0"
+  title: "Show API"
+tags:
+  - name: "shows"
+    description: "Show-related endpoints"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /show:
+    post:
+      tags:
+        - "shows"
+      summary: "Create a show"
+      description: ""
+      operationId: "addShow"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Show object that needs to be created."
+          required: true
+          schema:
+            $ref: "#/definitions/Show"
+      responses:
+        400:
+          description: "Invalid input"
+          schema:
+            $ref: "#/definitions/Error"
+        200:
+          description: "Created successfully"
+          schema:
+            $ref: "#/definitions/Show"
+    get:
+      tags:
+        - "shows"
+      summary: "Fetch all shows"
+      description: "This returns the list of shows in pages."
+      operationId: "getShows"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "query"
+          name: "page"
+          type: integer
+          description: "the zero-indexed page number."
+          required: false
+        - in: "query"
+          name: "size"
+          type: integer
+          description: "the size of each page."
+          required: false
+      responses:
+        200:
+          description: "Shows found."
+          schema:
+            $ref: "#/definitions/ShowPage"
+  /show/{id}:
+    get:
+      tags:
+        - "shows"
+      summary: "Get a show by its ID"
+      description: ""
+      operationId: "getShow"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          type: "string"
+          format: "uuid"
+          required: true
+      responses:
+        200:
+          description: "Show found."
+          schema:
+            $ref: "#/definitions/Show"
+        404:
+          description: "Show not found."
+          schema:
+            $ref: "#/definitions/Error"
+    delete:
+      tags:
+        - "shows"
+      summary: "Delete a show by its ID"
+      description: ""
+      operationId: "deleteShow"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          type: "string"
+          format: "uuid"
+          required: true
+      responses:
+        200:
+          description: "Show deleted successfully."
+        404:
+          description: "Show not found."
+          schema:
+            $ref: "#/definitions/Error"
+
+definitions:
+  Show:
+    type: "object"
+    description: "The show entity. Represents a musical performance event."
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      venue:
+        type: "string"
+        description: "The name of the venue."
+        example: "The Ryman"
+      artist:
+        type: "string"
+        description: "The name of the artist."
+        example: "The Strokes"
+      ticketUrl:
+        type: "string"
+        format: "uri"
+        description: "A link to the page to buy tickets to the show."
+        example: "https://www.ticketweb.com/"
+      eventTime:
+        type: "string"
+        format: "date-time"
+        description: "The date and time of the event."
+      createdAt:
+        type: "string"
+        format: "date-time"
+        description: "The date and time at which this Show was created."
+    required:
+      - id
+      - venue
+      - artist
+      - ticketUrl
+      - eventTime
+  ShowPage:
+    type: "object"
+    description: "A page of shows."
+    properties:
+      content:
+        type: "array"
+        description: "The list of shows in the page."
+        items:
+          $ref: "#/definitions/Show"
+      totalElements:
+        type: "integer"
+        format: "int64"
+        description: "The total number of elements."
+      totalPages:
+        type: "integer"
+        format: "int64"
+        description: "The total number of pages."
+      number:
+        type: "integer"
+        format: "int64"
+        description: "The zero-indexed page number"
+      first:
+        type: "boolean"
+        description: "True if this is the first page."
+      last:
+        type: "boolean"
+        description: "True if this is the last page."
+      empty:
+        type: "boolean"
+        description: "True if the page is empty."
+  Error:
+    type: "object"
+    description: "An Error"
+    properties:
+      timestamp:
+        type: "integer"
+        format: "int64"
+        description: "The timestamp of the error in UNIX ms"
+      status:
+        type: "integer"
+        format: "int64"
+        description: "The HTTP status code"
+      error:
+        type: "string"
+        description: "The HTTP status description"
+      exception:
+        type: "string"
+        description: "The type of exception"
+      message:
+        type: "string"
+        description: "The error message"
